@@ -8,20 +8,10 @@ The tool will walk through the current directory, parse all `.py` file and then 
 
 ## Options
 
-```
-usage: pystrfreq [-h] [--min-count MIN_COUNT] [--ignore-docstring] [files_or_dirs ...]
+To check all usage options:
 
-count strings in Python files
-
-positional arguments:
-  files_or_dirs         files or directories to scan
-
-optional arguments:
-  -h, --help            show this help message and exit
-  --min-count MIN_COUNT, -m MIN_COUNT
-                        show only strings with count equals to or is above this threshold
-  --ignore-docstring, -nd
-                        ignore docstrings
+```bash
+uvx pystrfreq -h
 ```
 
 ## Known Caveats
