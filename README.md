@@ -9,7 +9,7 @@ The tool will walk through the current directory, parse all `.py` file and then 
 ## Options
 
 ```
-usage: pystrfreq [-h] [--min-count MIN_COUNT] [files_or_dirs ...]
+usage: pystrfreq [-h] [--min-count MIN_COUNT] [--ignore-docstring] [files_or_dirs ...]
 
 count strings in Python files
 
@@ -20,6 +20,8 @@ optional arguments:
   -h, --help            show this help message and exit
   --min-count MIN_COUNT, -m MIN_COUNT
                         show only strings with count equals to or is above this threshold
+  --ignore-docstring, -nd
+                        ignore docstrings
 ```
 
 ## Known Caveats
