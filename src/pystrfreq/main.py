@@ -1,6 +1,7 @@
 import argparse
 import ast
 from collections import Counter
+from functools import lru_cache
 from pathlib import Path
 from typing import TYPE_CHECKING
 
@@ -30,10 +31,25 @@ def extract_string_from_file(path: Path, is_ignore_docstring: bool) -> list[str]
                 doc_strings.append(doc_string)
 
     if is_ignore_docstring:
-        for ds in doc_strings:
-            all_strings.remove(ds)
+        doc_counter = Counter(strip_whitespace(ds) for ds in doc_strings)
+
+        result = []
+
+        for s in all_strings:
+            key = strip_whitespace(s)
+            if doc_counter.get(key, 0) > 0:
+                doc_counter[key] -= 1
+            else:
+                result.append(s)
+
+        return result
 
     return all_strings
+
+
+@lru_cache(maxsize=256)
+def strip_whitespace(s: str) -> str:
+    return s.replace("\t", "").replace("    ", "").replace("\n", "")
 
 
 def main() -> None:
