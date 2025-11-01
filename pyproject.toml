@@ -1,6 +1,6 @@
 [project]
 name = "pystrfreq"
-version = "0.3.2"
+version = "0.4.0"
 description = "Tabulate the frequency of string object in a python codebase"
 readme = "README.md"
 keywords = ["utility", "python", "statistics", "ast"]
