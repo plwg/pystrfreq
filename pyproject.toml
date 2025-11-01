@@ -1,6 +1,6 @@
 [project]
 name = "pystrfreq"
-version = "0.3.2"
+version = "0.4.0"
 description = "Tabulate the frequency of string object in a python codebase"
 readme = "README.md"
 keywords = ["utility", "python", "statistics", "ast"]
@@ -14,7 +14,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = []
 
 [project.urls]
