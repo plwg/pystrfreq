@@ -3,10 +3,6 @@ import ast
 from collections import Counter
 from functools import lru_cache
 from pathlib import Path
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from collections.abc import Generator
 
 
 def extract_string_from_file(path: Path, is_ignore_docstring: bool) -> list[str]:
@@ -95,9 +91,7 @@ def main() -> None:
                 print(f"{arg}: No such file or directory.")
 
     else:
-        list_of_files: Generator[Path, None, None] = (
-            path for path in Path().rglob(python_glob_pattern)
-        )
+        list_of_files = [path for path in Path().rglob(python_glob_pattern)]
 
     for path in list_of_files:
         strings: list[str] = extract_string_from_file(path, args.ignore_docstring)
