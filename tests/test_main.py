@@ -33,6 +33,25 @@ def test_syntax_error_warns(tmp_path: Path, capsys: pytest.CaptureFixture[str]) 
     assert "bad.py: skipped" in capsys.readouterr().err
 
 
+def test_source_encoding(tmp_path: Path) -> None:
+    path = tmp_path / "enc.py"
+    path.write_bytes(b'# -*- coding: latin-1 -*-\nx = "caf\xe9"\n')
+    assert extract_string_from_file(path, False) == ["caf\u00e9"]
+
+
+def test_utf8_bom(tmp_path: Path) -> None:
+    path = tmp_path / "bom.py"
+    path.write_bytes(b'\xef\xbb\xbfx = "a"\n')
+    assert extract_string_from_file(path, False) == ["a"]
+
+
+def test_invalid_encoding_warns(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    path = tmp_path / "bad.py"
+    path.write_bytes(b'x = "\xff"\n')
+    assert extract_string_from_file(path, False) == []
+    assert "bad.py: skipped" in capsys.readouterr().err
+
+
 def test_no_python_files(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
 ) -> None:

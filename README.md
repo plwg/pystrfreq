@@ -16,7 +16,8 @@ uvx pystrfreq -h
 
 ## Known Caveats
 
-- Requires Python 3.11 to 3.15. Files are parsed with the running interpreter's grammar, so files using newer syntax (e.g. t-strings, 3.14+) are skipped when run on an older Python.
+- Requires Python 3.11 to 3.15.
+- Results depend on the Python version running `pystrfreq`: files are parsed with that interpreter's grammar, so files using newer syntax (e.g. t-strings, 3.14+) are skipped with a warning on an older Python. Run with the newest Python your codebase targets, e.g. `uvx --python 3.15 pystrfreq`.
 - `FormmatedValue` in `f-string` are not supported, while the `f-string` will be broken into its constant parts and tabulated.
 
 ## License

@@ -8,7 +8,7 @@ from pathlib import Path
 
 def extract_string_from_file(path: Path, is_ignore_docstring: bool) -> list[str]:
     try:
-        tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+        tree = ast.parse(path.read_bytes(), filename=str(path))
     except SyntaxError as e:
         print(
             f"{path}: skipped, cannot parse with Python "
