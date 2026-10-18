@@ -1,5 +1,6 @@
 import argparse
 import ast
+import sys
 from collections import Counter
 from functools import lru_cache
 from pathlib import Path
@@ -7,8 +8,13 @@ from pathlib import Path
 
 def extract_string_from_file(path: Path, is_ignore_docstring: bool) -> list[str]:
     try:
-        tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
-    except SyntaxError:
+        tree = ast.parse(path.read_bytes(), filename=str(path))
+    except SyntaxError as e:
+        print(
+            f"{path}: skipped, cannot parse with Python "
+            f"{sys.version_info.major}.{sys.version_info.minor}: {e.msg} (line {e.lineno})",
+            file=sys.stderr,
+        )
         return []
 
     all_strings: list[str] = []
@@ -96,6 +102,9 @@ def main() -> None:
     for path in list_of_files:
         strings: list[str] = extract_string_from_file(path, args.ignore_docstring)
         counter.update(strings)
+
+    if not counter:
+        return
 
     largest_freq_len: int = len(str(counter.most_common()[0][1]))
 
